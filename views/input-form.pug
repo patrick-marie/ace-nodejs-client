@@ -1,0 +1,28 @@
+html
+html
+   head
+      title Gestion des personnes - Entrer une nouvelle personne
+   body
+      h1 Gestion des personnes
+      h2 Entrer une nouvelle personne :
+      form(action = "/action/input", method = "POST")
+         div
+            table
+               tr
+                  td
+                     label Nom :
+                  td
+                     input(name = "lastname" value = "")
+               tr
+                  td
+                     label Prénom :
+                  td
+                     input(name = "firstname" value = "")
+               tr
+                  td
+                     br
+                     button(type = "submit") Entrer
+                                    tr
+                  td
+                     br
+                     a(class="button", href="/") Maison

@@ -1,0 +1,21 @@
+html
+html
+   head
+      title Gestion des personnes - Menu principal
+   body
+      h1 Gestion des personnes
+      form(action = "/action", method = "GET")
+         div
+            input(type="radio", name="action", value="retrieve", checked)
+            label Rechercher une personne
+            br
+            input(type="radio", name="action", value="retrieveall")
+            label Rechercher toutes les personnes
+            br
+            input(type="radio", name="action", value="input")
+            label Entrer une nouvelle personne
+            br
+            input(type="radio", name="action", value="delete")
+            label Supprimer une personne
+         br
+         button(type = "submit") Choisir

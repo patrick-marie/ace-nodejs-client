@@ -1,0 +1,23 @@
+html
+html
+   head
+      title Gestion des personnes - Rechercher une personne
+   body
+      h1 Gestion des personnes
+      h2 Rechercher une personne par son identifiant :
+      form(action = "/action/retrieve", method = "GET")
+         div
+            table
+               tr
+                  td
+                     label Identifiant :
+                  td
+                     input(name = "id" value = "")
+               tr
+                  td
+                     br
+                     button(type = "submit") Rechercher
+               tr
+                  td
+                     br
+                     a(class="button", href="/") Maison

@@ -1,0 +1,25 @@
+html
+html
+   head
+      title Gestion des personnes - Supprimer une personne
+   body
+      h1 Gestion des personnes
+      h2 Supprimer une personne :
+      form(action = "/action/delete", method = "GET")
+         div
+            table
+               tr
+                  td
+                     label Identifiant :
+                  td
+                     input(name = "id" value = "")
+                  td
+                     label (entrer une valeur numérique)
+               tr
+                  td
+                     br
+                     button(type = "submit") Supprimer
+               tr
+                  td
+                     br
+                     a(class="button", href="/") Maison
