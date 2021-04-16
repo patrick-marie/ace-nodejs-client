@@ -37,7 +37,10 @@ app.get("/action", function(req, res){
         };
     
         var httpsOptions = {
-            host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+            // Serveur d'intégration de test du Designer :
+            //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+            // Serveur d'intégration indépendant :
+            host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
             path: "/PersonsDBAccessFlow/Person/RetrieveAllPersons",
             port: "443",
             agent: new https.Agent(agentOptions),
@@ -83,7 +86,10 @@ app.get("/action/retrieve", function(req, res){
     };
 
     var httpsOptions = {
-        host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        // Serveur d'intégration de test du Designer :
+        //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        // Serveur d'intégration indépendant :
+        host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
         path: "/PersonsDBAccessFlow/Person/" + req.param("id"),
         port: "443",
         agent: new https.Agent(agentOptions),
@@ -124,7 +130,10 @@ app.post("/action/input", function(req, res){
     };
 
     var httpsOptions = {
-        host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        // Serveur d'intégration de test du Designer :
+        //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        // Serveur d'intégration indépendant :
+        host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
         path: "/PersonsDBAccessFlow/Person",
         port: "443",
         agent: new https.Agent(agentOptions),
@@ -166,7 +175,10 @@ app.get("/action/delete", function(req, res){
     };
 
     var httpsOptions = {
-        host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        // Serveur d'intégration de test du Designer :
+        //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        // Serveur d'intégration indépendant :
+        host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
         path: "/PersonsDBAccessFlow/Person/" + req.param("id") + "/deletebyid",
         port: "443",
         agent: new https.Agent(agentOptions),
