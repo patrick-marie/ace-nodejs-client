@@ -6,6 +6,11 @@ var https = require("https");
 var upload = multer();
 var app = express();
 
+// Host do serveur d'intégration de test du Designer : "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
+// Host du serveur d'intégration indépendant : "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
+const ACE_HOST = process.env.ACE_HOST || "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com";
+const ACE_PORT = process.env.ACE_PORT || "443";
+
 app.set('view engine', 'pug');
 app.set('views', './views');
 
@@ -37,12 +42,9 @@ app.get("/action", function(req, res){
         };
     
         var httpsOptions = {
-            // Serveur d'intégration de test du Designer :
-            //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
-            // Serveur d'intégration indépendant :
-            host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+            host: ACE_HOST,
+            port: ACE_PORT,
             path: "/PersonsDBAccessFlow/Person/RetrieveAllPersons",
-            port: "443",
             agent: new https.Agent(agentOptions),
             method: "GET",
             headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
@@ -86,12 +88,9 @@ app.get("/action/retrieve", function(req, res){
     };
 
     var httpsOptions = {
-        // Serveur d'intégration de test du Designer :
-        //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
-        // Serveur d'intégration indépendant :
-        host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        host: ACE_HOST,
+        port: ACE_PORT,
         path: "/PersonsDBAccessFlow/Person/" + req.param("id"),
-        port: "443",
         agent: new https.Agent(agentOptions),
         method: "GET",
         headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
@@ -130,12 +129,9 @@ app.post("/action/input", function(req, res){
     };
 
     var httpsOptions = {
-        // Serveur d'intégration de test du Designer :
-        //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
-        // Serveur d'intégration indépendant :
-        host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        host: ACE_HOST,
+        port: ACE_PORT,
         path: "/PersonsDBAccessFlow/Person",
-        port: "443",
         agent: new https.Agent(agentOptions),
         method: "POST",
         headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
@@ -175,12 +171,9 @@ app.get("/action/delete", function(req, res){
     };
 
     var httpsOptions = {
-        // Serveur d'intégration de test du Designer :
-        //host: "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
-        // Serveur d'intégration indépendant :
-        host: "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com",
+        host: ACE_HOST,
+        port: ACE_PORT,
         path: "/PersonsDBAccessFlow/Person/" + req.param("id") + "/deletebyid",
-        port: "443",
         agent: new https.Agent(agentOptions),
         method: "DELETE",
         headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
