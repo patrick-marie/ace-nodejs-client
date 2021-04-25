@@ -19,6 +19,7 @@
   "homepage": "https://github.com/patrick-marie/ace-nodejs-client#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "jks-js": "^1.0.0",
     "multer": "^1.4.2",
     "pug": "^3.0.2"
   }

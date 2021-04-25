@@ -2,13 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var https = require("https");
+var fs = require("fs");
+var jks = require("jks-js");
 
 var upload = multer();
 var app = express();
 
-// Host do serveur d'intégration de test du Designer : "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
+// Host du serveur d'intégration de test du Designer : "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
 // Host du serveur d'intégration indépendant : "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
-const ACE_HOST = process.env.ACE_HOST || "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com";
+const ACE_HOST = process.env.ACE_HOST || "is-personsdbaccess2-https-ace-os.apps.ace4pm.os.fyre.ibm.com";
 const ACE_PORT = process.env.ACE_PORT || "443";
 
 app.set('view engine', 'pug');
@@ -38,8 +40,16 @@ app.get("/action", function(req, res){
         console.log("Received a request: action/retrieveall");
     
         var agentOptions = {
-            rejectUnauthorized: false
+            //rejectUnauthorized: false
+            rejectUnauthorized: true
         };
+
+        var truststore = jks.toPem(
+            fs.readFileSync("stores\\ace-os-truststore.jks"),
+            "password"
+        );
+        var mycert = truststore["ace-os-cert"].ca;
+        console.log(mycert);
     
         var httpsOptions = {
             host: ACE_HOST,
@@ -47,9 +57,10 @@ app.get("/action", function(req, res){
             path: "/PersonsDBAccessFlow/Person/RetrieveAllPersons",
             agent: new https.Agent(agentOptions),
             method: "GET",
-            headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
+            headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="},
+            ca: mycert
         };
-    
+
         var request = https.request(httpsOptions, function(response) {
             console.log('STATUS: ' + res.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -84,8 +95,16 @@ app.get("/action/retrieve", function(req, res){
     console.log("Received a request: action/retrieve " + req.param("id"));
     
     var agentOptions = {
-        rejectUnauthorized: false
+        //rejectUnauthorized: false
+        rejectUnauthorized: true
     };
+
+    var truststore = jks.toPem(
+        fs.readFileSync("stores\\ace-os-truststore.jks"),
+        "password"
+    );
+    var mycert = truststore["ace-os-cert"].ca;
+    console.log(mycert);
 
     var httpsOptions = {
         host: ACE_HOST,
@@ -93,7 +112,8 @@ app.get("/action/retrieve", function(req, res){
         path: "/PersonsDBAccessFlow/Person/" + req.param("id"),
         agent: new https.Agent(agentOptions),
         method: "GET",
-        headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
+        headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="},
+        ca: mycert
     };
 
     var request = https.request(httpsOptions, function(response) {
@@ -125,8 +145,16 @@ app.post("/action/input", function(req, res){
     console.log("Received a request : action/input " + req.body.id + " " + req.body.lastname + " " + req.body.firstname);
 
     var agentOptions = {
-        rejectUnauthorized: false
+        //rejectUnauthorized: false
+        rejectUnauthorized: true
     };
+
+    var truststore = jks.toPem(
+        fs.readFileSync("stores\\ace-os-truststore.jks"),
+        "password"
+    );
+    var mycert = truststore["ace-os-cert"].ca;
+    console.log(mycert);
 
     var httpsOptions = {
         host: ACE_HOST,
@@ -134,7 +162,8 @@ app.post("/action/input", function(req, res){
         path: "/PersonsDBAccessFlow/Person",
         agent: new https.Agent(agentOptions),
         method: "POST",
-        headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
+        headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="},
+        ca: mycert
     };
 
     var request = https.request(httpsOptions, function(response) {
@@ -166,9 +195,18 @@ app.post("/action/input", function(req, res){
  
 app.get("/action/delete", function(req, res){
     console.log("Received a request : action/delete " + req.param("id"));
+
     var agentOptions = {
-        rejectUnauthorized: false
+        //rejectUnauthorized: false
+        rejectUnauthorized: true
     };
+
+    var truststore = jks.toPem(
+        fs.readFileSync("stores\\ace-os-truststore.jks"),
+        "password"
+    );
+    var mycert = truststore["ace-os-cert"].ca;
+    console.log(mycert);
 
     var httpsOptions = {
         host: ACE_HOST,
@@ -176,7 +214,8 @@ app.get("/action/delete", function(req, res){
         path: "/PersonsDBAccessFlow/Person/" + req.param("id") + "/deletebyid",
         agent: new https.Agent(agentOptions),
         method: "DELETE",
-        headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="}
+        headers: {"accept": "application/json", "Authorization": "Basic eTdPTUlGZjY6VkdKVGRBSVlGOTAzMVdDVVh5OG00UkJjczJMbGk3cnA="},
+        ca: mycert
     };
 
     var request = https.request(httpsOptions, function(response) {
