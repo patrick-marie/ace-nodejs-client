@@ -45,7 +45,7 @@ app.get("/action", function(req, res){
         };
 
         var truststore = jks.toPem(
-            fs.readFileSync("stores\\ace-os-truststore.jks"),
+            fs.readFileSync("./stores/ace-os-truststore.jks"),
             "password"
         );
         var mycert = truststore["ace-os-cert"].ca;
@@ -100,7 +100,7 @@ app.get("/action/retrieve", function(req, res){
     };
 
     var truststore = jks.toPem(
-        fs.readFileSync("stores\\ace-os-truststore.jks"),
+        fs.readFileSync("./stores/ace-os-truststore.jks"),
         "password"
     );
     var mycert = truststore["ace-os-cert"].ca;
@@ -150,7 +150,7 @@ app.post("/action/input", function(req, res){
     };
 
     var truststore = jks.toPem(
-        fs.readFileSync("stores\\ace-os-truststore.jks"),
+        fs.readFileSync("./stores/ace-os-truststore.jks"),
         "password"
     );
     var mycert = truststore["ace-os-cert"].ca;
@@ -202,7 +202,7 @@ app.get("/action/delete", function(req, res){
     };
 
     var truststore = jks.toPem(
-        fs.readFileSync("stores\\ace-os-truststore.jks"),
+        fs.readFileSync("./stores/ace-os-truststore.jks"),
         "password"
     );
     var mycert = truststore["ace-os-cert"].ca;
