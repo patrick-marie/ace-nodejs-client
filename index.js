@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
+var http = require("http");
 var https = require("https");
 var fs = require("fs");
 var jks = require("jks-js");
@@ -9,7 +10,7 @@ var upload = multer();
 var app = express();
 
 // Host du serveur d'intégration de test du Designer : "ace-designer-designer-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
-// Host du serveur d'intégration indépendant : "is-personsdbaccess-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
+// Host du serveur d'intégration indépendant : "is-personsdbaccess2-https-ace-os.apps.ace4pm.os.fyre.ibm.com"
 const ACE_HOST = process.env.ACE_HOST || "is-personsdbaccess2-https-ace-os.apps.ace4pm.os.fyre.ibm.com";
 const ACE_PORT = process.env.ACE_PORT || "443";
 
@@ -242,5 +243,23 @@ app.get("/action/delete", function(req, res){
 
     request.end();
 });
- 
-app.listen(3000);
+
+//var httpServer = http.createServer(app);
+var keystore = jks.toPem(
+    fs.readFileSync("./stores/ace-os-keystore.jks"),
+    "password"
+);
+var mykey = keystore["ace-os-key"].key;
+//console.log(mykey);
+var mycert = keystore["ace-os-key"].cert;
+//console.log(mycert);
+
+const options = {
+    key: mykey,
+    cert: mycert,
+    ciphers: "DEFAULT:!SSLv2:!RC4:!EXPORT:!LOW:!MEDIUM:!SHA1"
+};
+var httpsServer = https.createServer(options, app);
+
+//httpServer.listen(3000);
+httpsServer.listen(3443);
